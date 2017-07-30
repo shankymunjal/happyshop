@@ -1,0 +1,19 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  name: MyString
+  sold_out: false
+  category: MyString
+  under_sale: false
+  price: 1
+  sale_proce: 1
+  sale_text: 1
+
+two:
+  name: MyString
+  sold_out: false
+  category: MyString
+  under_sale: false
+  price: 1
+  sale_proce: 1
+  sale_text: 1
