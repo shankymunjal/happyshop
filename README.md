@@ -6,13 +6,13 @@ application up and running.
 Things you may want to cover:
 
 Technologies
-Frontend - ReactJS(0.14.8) with flux
-Backend - ROR(5.0.4)
-Database - Postgres
+* Frontend - ReactJS(0.14.8) with flux
+* Backend - ROR(5.0.4)
+* Database - Postgres
 
 API Documentation
 
-1. Get first 10 products
+# Get first 10 products
 URL - /products.json
 Response
 [
@@ -30,15 +30,15 @@ Response
 ]
 
 Available query params 
-a) pageNo=4
-b) category=Beauty
-c) startPrice=100&endPrice=9000
+#* pageNo=4
+#* category=Beauty
+#* startPrice=100&endPrice=9000
 
 Combination of available params also supported
 
-2. Get the detail the 1 product
+# Get the detail the 1 product
 URL - /products/3.json
-Response
+*Response*
 	{
 		"id":3,
 		"name":"Urban Decay Naked 3",
@@ -51,11 +51,10 @@ Response
 		"updated_at":"2017-07-30T13:45:46.135Z"
 	}
 
-Rake command to create dummy products
-rake product:create_electronics_products
-rake product:create_beauty_products
+*Rake command to create dummy products*
+* rake product:create_electronics_products
+* rake product:create_beauty_products
 
-Command to start application
-Backend - Go to root directory of project and run command - rails s
-Frontend - Go to root directory of project and run command - cd client && npm run build:development
-
+*Command to start application*
+* Backend - Go to root directory of project and run command - rails s
+* Frontend - Go to root directory of project and run command - cd client && npm run build:development
