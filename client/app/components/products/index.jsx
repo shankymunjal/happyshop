@@ -39,7 +39,7 @@ export default class Products extends React.Component {
 
     loadMoreProducts(){
         let currPage = this.state.page;
-        if(currPage*10 == this.state.products.length){
+        if(currPage*10 >= this.state.products.length){
             return WebApi.getProducts(currPage + 1, this.increasePageNo)
         }
         else{

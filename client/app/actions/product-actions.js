@@ -25,8 +25,21 @@ var ProdcutActions = {
 			json: json,
 			errors: errors
 		})
-	}	
-
+	},
+	addProducts: function(json, errors){
+		AppDispatcher.handleViewAction({
+			actionType: Constants.ADD_PRODUCT,
+			json: json,
+			errors: errors
+		})
+	},
+	removeProducts: function(json, errors){
+		AppDispatcher.handleViewAction({
+			actionType: Constants.REMOVE_PRODUCT,
+			json: json,
+			errors: errors
+		})
+	}
 }
 
 

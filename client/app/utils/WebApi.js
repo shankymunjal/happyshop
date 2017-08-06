@@ -45,4 +45,14 @@ module.exports = {
 		});
 	},
 
+	filterProducts: function(filterBy, callback) {
+		request.get('products.json')
+		  .query(filterBy)
+		  .set('Accept', 'application/json')
+		  .end(function(err, response) {
+		    if (err) return console.error(err);
+		    ProductAction.addProducts(response.body);
+	    	callback && callback(response.body);
+		});
+	},
 };

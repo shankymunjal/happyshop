@@ -12,6 +12,44 @@ function _populateProducts(jsonResponse){
 	_products = _products.concat(jsonResponse);
 }
 
+function _addProduct(jsonResponse){
+	for(var i = jsonResponse.length - 1; i >= 0; i--) {
+ 	   if(notExists(jsonResponse[i].id)) {
+    	   _products.push(jsonResponse[i]);
+    	}
+	}
+}
+
+function notExists(productId){
+	var exists = false;
+	for(var i = _products.length - 1; i >= 0; i--) {
+ 	   if(_products[i].id === productId) {
+    	   exists = true;
+    	}
+	}
+	return !exists
+}
+
+function _removeProduct(filterParams){
+	if (filterParams.category){
+		for(var i = _products.length - 1; i >= 0; i--) {
+	 	   if(_products[i].category === filterParams.category) {
+	    	   _products.splice(i, 1);
+	    	}
+		}
+	}else if (filterParams.price){
+		var priceArray = filterParams.price.replace(/\$/g, '').split(' - ')
+		var minPrice, maxPrice
+		for(var i = _products.length - 1; i >= 0; i--) {
+	 		minPrice = parseInt(priceArray[0])
+	 		maxPrice = parseInt(priceArray[1])
+	 	   	if((_products[i].price >= minPrice) && _products[i].price <= maxPrice) {
+	    	   _products.splice(i, 1);
+	    	}
+		}
+	}
+}
+
 function _populateCategories(jsonResponse){
 	_categories = jsonResponse;
 }
@@ -58,6 +96,14 @@ var ProductStore = assign({}, EventEmitter.prototype, {
 				break;
 			case AppConstants.RECEIVE_PRICE_RANGES:
 				_populatePriceRanges(payload.action.json)
+				ProductStore.emitProductChange();
+				break;
+			case AppConstants.REMOVE_PRODUCT:
+				_removeProduct(payload.action.json)
+				ProductStore.emitProductChange();
+				break;
+			case AppConstants.ADD_PRODUCT:
+				_addProduct(payload.action.json)
 				ProductStore.emitProductChange();
 				break;
 		}

@@ -5,7 +5,7 @@ class Product < ApplicationRecord
 
 	scope :all_by_category, -> (category) { where(category: category) if category}
 
-	scope :all_within_price_range, -> (start_price, end_price) { where("price > :start_price and price < :end_price", start_price: start_price, end_price: end_price) if start_price}
+	scope :all_within_price_range, -> (start_price, end_price) { where("price >= :start_price and price <= :end_price", start_price: start_price, end_price: end_price) if start_price}
 
 	scope :max_min_price, -> {select("Max(price) as max_price, Min(price) as min_price")[0]}
 
@@ -27,5 +27,13 @@ class Product < ApplicationRecord
 			price_ranges.push("$#{percents_split[range].min} - $#{percents_split[range].max}" )
 		end
 		price_ranges
+	end
+
+	def self.filterByPrice(price_range)
+		# price_range - $100 - $200
+		price_range = eval(price_range.gsub('$', '').gsub(' - ', '..'))
+		min_price = price_range.first
+		max_price = price_range.last
+		all_within_price_range(min_price, max_price)
 	end
 end

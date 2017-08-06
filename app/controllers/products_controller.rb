@@ -1,6 +1,14 @@
 class ProductsController < ApplicationController
 	def index
-		@products = Product.paginate(params[:pageNo].to_i)
+		if params[:category]
+			@products = Product.where(category: params[:category])
+		end
+		if params[:price]
+			@products = Product.filterByPrice(params[:price])
+		end
+		if params[:pageNo]
+			@products = Product.paginate([params[:pageNo].to_i, 1].max)
+		end
 	end
 
 	def show
