@@ -6,4 +6,8 @@ class ProductsController < ApplicationController
 	def show
 		@product = Product.find(params[:id])
 	end
+
+	def pricerange
+		@price_ranges = Product.get_price_ranges
+	end
 end

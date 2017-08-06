@@ -25,5 +25,24 @@ module.exports = {
 		});
 	},
 
+	getCategories: function(callback) {
+		request.get('/categories.json')
+		  .set('Accept', 'application/json')
+		  .end(function(err, response) {
+		    if (err) return console.error(err);
+		    ProductAction.receiveCategories(response.body);
+	    	callback && callback(response.body);
+		});
+	},
+
+	getPriceRanges: function(callback) {
+		request.get('products/pricerange.json')
+		  .set('Accept', 'application/json')
+		  .end(function(err, response) {
+		    if (err) return console.error(err);
+		    ProductAction.receivePriceRanges(response.body);
+	    	callback && callback(response.body);
+		});
+	},
 
 };

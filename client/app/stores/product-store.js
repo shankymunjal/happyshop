@@ -4,12 +4,21 @@ var assign = Object.assign;
 var EventEmitter = require('events').EventEmitter;
 
 var _products = [];
+var _categories = [];
+var _priceRanges = [];
 var PRODUCT_EVENT = 'product';
 
 function _populateProducts(jsonResponse){
 	_products = _products.concat(jsonResponse);
 }
 
+function _populateCategories(jsonResponse){
+	_categories = jsonResponse;
+}
+
+function _populatePriceRanges(jsonResponse){
+	_priceRanges = jsonResponse;
+}
 
 var ProductStore = assign({}, EventEmitter.prototype, {
 	emitProductChange: function(){
@@ -28,11 +37,27 @@ var ProductStore = assign({}, EventEmitter.prototype, {
 		return _products
 	},
 
+	getCategories: function(){
+		return _categories
+	},
+
+	getPriceRanges: function(){
+		return _priceRanges
+	},
+
 	dispatcherIndex: AppDispatcher.register(function(payload){
 		var action = payload.action;
 		switch(action.actionType){
 			case AppConstants.RECEIVE_PRODUCTS:
 				_populateProducts(payload.action.json)
+				ProductStore.emitProductChange();
+				break;
+			case AppConstants.RECEIVE_CATEGORIES:
+				_populateCategories(payload.action.json)
+				ProductStore.emitProductChange();
+				break;
+			case AppConstants.RECEIVE_PRICE_RANGES:
+				_populatePriceRanges(payload.action.json)
 				ProductStore.emitProductChange();
 				break;
 		}

@@ -10,7 +10,23 @@ var ProdcutActions = {
 			json: json,
 			errors: errors
 		})
-	}
+	},
+
+	receiveCategories: function(json, errors){
+		AppDispatcher.handleViewAction({
+			actionType: Constants.RECEIVE_CATEGORIES,
+			json: json,
+			errors: errors
+		})
+	},
+	receivePriceRanges: function(json, errors){
+		AppDispatcher.handleViewAction({
+			actionType: Constants.RECEIVE_PRICE_RANGES,
+			json: json,
+			errors: errors
+		})
+	}	
+
 }
 
 
